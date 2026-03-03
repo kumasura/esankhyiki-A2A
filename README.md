@@ -120,6 +120,31 @@ fastmcp run mospi_server.py:mcp
 
 Server runs at `http://localhost:8000/mcp`
 
+### Running the A2A Server (Google ADK)
+
+This repo also includes an Agent-to-Agent (A2A) server powered by Google ADK that reuses the same MoSPI MCP tools.
+
+```bash
+# Install dependencies
+pip install -r requirements.txt
+
+# Start A2A server
+python a2a_server.py
+```
+
+A2A endpoints:
+- `GET /health`
+- `POST /a2a/message` with JSON body:
+
+```json
+{
+  "session_id": "demo-session",
+  "message": "Get CPI indicators for food inflation"
+}
+```
+
+The ADK agent is configured to call the existing MCP workflow tools (`1_know_about_mospi_api` → `2_get_indicators` → `3_get_metadata` → `4_get_data`) and return the final output.
+
 ### Connecting from an MCP Client
 
 ```python
