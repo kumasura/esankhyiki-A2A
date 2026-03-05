@@ -1,18 +1,20 @@
-# MoSPI MCP Server
+# MoSPI MCP Agent (Built on MCP)
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Python 3.11+](https://img.shields.io/badge/python-3.11+-blue.svg)](https://www.python.org/downloads/)
 [![FastMCP](https://img.shields.io/badge/FastMCP-3.0-green.svg)](https://gofastmcp.com)
 
-MCP (Model Context Protocol) server for accessing India's Ministry of Statistics and Programme Implementation (MoSPI) data APIs. Built with FastMCP 3.0.
+Agent-ready MoSPI intelligence stack built on top of an MCP (Model Context Protocol) server for accessing India's Ministry of Statistics and Programme Implementation (MoSPI) data APIs. Built with FastMCP 3.0.
 
 ---
 
 ## Table of Contents
 
 - [Overview](#overview)
+- [Why an Agent Built on MCP](#why-an-agent-built-on-mcp)
 - [Datasets](#datasets)
 - [MCP Tools](#mcp-tools)
+- [Agent Workflow](#agent-workflow)
 - [Quick Start](#quick-start)
   - [Installation](#installation)
   - [Running the Server](#running-the-server)
@@ -33,7 +35,9 @@ MCP (Model Context Protocol) server for accessing India's Ministry of Statistics
 
 ## Overview
 
-This server provides AI-ready access to official Indian government statistics through the Model Context Protocol (MCP). It acts as a bridge between AI assistants (Claude, ChatGPT, Cursor, etc.) and MoSPI's open data APIs, enabling natural language queries for economic, demographic, and social indicators.
+This project is designed as an **AI agent foundation layer** for official Indian government statistics. MCP remains the core protocol and interface, while the agent layer orchestrates how tools are used reliably.
+
+At its core, the server provides AI-ready access to official Indian government statistics through the Model Context Protocol (MCP). It acts as a bridge between AI assistants (Claude, ChatGPT, Cursor, etc.) and MoSPI's open data APIs, enabling natural language queries for economic, demographic, and social indicators.
 
 **Key Features:**
 - 7 statistical datasets covering employment, inflation, industrial production, GDP, and energy
@@ -41,6 +45,19 @@ This server provides AI-ready access to official Indian government statistics th
 - Swagger-driven parameter validation
 - Full OpenTelemetry integration for observability
 - Production-ready Docker deployment
+
+---
+
+## Why an Agent Built on MCP
+
+MCP gives a standard, interoperable way for models to call tools. This repository builds an **agentic workflow** on top of that protocol so users get:
+
+- **Consistent multi-step reasoning** through a strict tool order
+- **Lower tool misuse** by validating metadata before data fetches
+- **Reusable orchestration** across MCP clients and A2A setups
+- **Protocol portability** so the same capabilities can be used from multiple agent frameworks
+
+In short: **MCP is the contract; the agent workflow is the intelligence pattern built on it.**
 
 ---
 
@@ -75,6 +92,19 @@ The server exposes 4 tools that follow a sequential workflow:
 | 4 | `4_get_data(dataset, filters)` | Fetch data using filter key-value pairs from metadata. |
 
 **Important:** Tools must be called in order. Skipping `3_get_metadata` will result in invalid filter codes.
+
+---
+
+## Agent Workflow
+
+The agent behavior in this project is intentionally built around MCP's tool contract:
+
+1. **Understand capability space** via `1_know_about_mospi_api`
+2. **Narrow intent to indicators** via `2_get_indicators`
+3. **Resolve valid parameters** via `3_get_metadata`
+4. **Execute retrieval safely** via `4_get_data`
+
+This keeps responses robust, auditable, and compatible with both direct MCP clients and higher-level agent runtimes (such as the included A2A server).
 
 ---
 
