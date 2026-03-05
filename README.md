@@ -108,18 +108,6 @@ This keeps responses robust, auditable, and compatible with both direct MCP clie
 
 ---
 
-## Quick Start
-
-If you want to connect your AI agent of choice with the MCP server, you can directly connect it with MOSPI's MCP server. Video Guides to connect ChatGPT or Claude to MCP are available here - 
-
-https://github.com/user-attachments/assets/ec23db03-c5ad-4bdd-af3a-9387bd906b3c
-
-https://github.com/user-attachments/assets/4d2adb2a-a350-4563-8408-c0790bb94412
-
-To get more information, visit - https://www.datainnovation.mospi.gov.in/mospi-mcp
-
-Below instructions are for self-hosting the MCP server. 
-
 ### Installation
 
 ```bash
@@ -235,6 +223,7 @@ Services:
 
 ```
 mospi-mcp-api/
+├── a2a_server.py            # A2A server 
 ├── mospi_server.py          # FastMCP server - tools, validation, routing
 ├── mospi/
 │   └── client.py            # MoSPI API client - HTTP requests to api.mospi.gov.in
@@ -299,15 +288,3 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ---
 
-## DIID
-
-The Data Innovation Lab aims to promote innovation and the use of Information Technology in official statistics, including modernizing survey methods. It seeks to address the current challenges faced by the National Statistical System (NSS). The lab will serve as a platform for testing and developing new ideas through proof-of-concept projects. It will foster collaboration with a wide range of participants such as entrepreneurs, researchers, start-ups, academic institutions, and renowned national and international organizations. By creating an open and dynamic environment, the lab will support the advancement of statistical systems and help improve the quality and efficiency of data collection and analysis.
-
-Know more: https://www.datainnovation.mospi.gov.in/home
-
-
-## Acknowledgments
-
-Made in partnership with **[Bharat Digital](https://bharatdigital.io)** in pursuit of modernising and humanising how government's use technology in service of the public. 
-
-<!-- Geek spotted! Respect for reading the raw markdown. You're the kind of person India's open data movement needs. -->
